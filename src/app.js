@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { CssBaseLine } from '@material-ui/core'
+import { CssBaseline } from '@material-ui/core'
 import { MainPage } from 'pages/main'
 import { Login } from 'pages/login'
 
 const App = () => (
   <Fragment>
-    <CssBaseLine />
+    <CssBaseline />
 
     <BrowserRouter>
       <Switch>
