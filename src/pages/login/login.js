@@ -5,17 +5,16 @@ import 'firebase/auth'
 import { Button, Grid } from '@material-ui/core'
 import { ReactComponent as MainLogo } from './logo-react-zzaria.svg'
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyD0NMO1BuAICNJ3o4bLU54Ws6UpTrLMcLs',
-  authDomain: 'reactzzaria-40602.firebaseapp.com',
-  databaseURL: 'https://reactzzaria-40602.firebaseio.com',
-  projectId: 'reactzzaria-40602',
-  storageBucket: '',
-  messagingSenderId: '806464840510',
-  appId: '1:806464840510:web:0afcb88392c85a7c84c26f'
+const config = {
+  apiKey: 'AIzaSyADubq8Pf-_nC6cM52PGZJLAJ_yT4UkWto',
+  authDomain: 'reactzzaria-12649.firebaseapp.com',
+  databaseURL: 'https://reactzzaria-12649.firebaseio.com',
+  projectId: 'reactzzaria-12649',
+  storageBucket: 'reactzzaria-12649.appspot.com',
+  messagingSenderId: '190402590347'
 }
 
-firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(config)
 
 function Login () {
   const [userInfo, setUserInfo] = useState({
@@ -27,6 +26,7 @@ function Login () {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
+      console.log('dados do usuário:', user)
       setUserInfo({
         isUserLoggedIn: !!user,
         user
@@ -34,17 +34,17 @@ function Login () {
     })
   }, [])
 
-  const login = () =>
-    useCallback(() => {
-      const provider = new firebase.auth.GithubAuthProvider()
-      firebase.auth().signInWithRedirect(provider)
-    }, [])
+  const login = useCallback(() => {
+    const provider = new firebase.auth.GithubAuthProvider()
+    firebase.auth().signInWithRedirect(provider)
+  }, [])
 
   const logout = useCallback(() => {
     firebase
       .auth()
       .signOut()
       .then(() => {
+        console.log('deslogou!')
         setUserInfo({
           isUserLoggedIn: false,
           user: null
@@ -58,6 +58,7 @@ function Login () {
         <Grid item>
           <Logo />
         </Grid>
+
         <Grid item xs={12} container justify='center'>
           {isUserLoggedIn && (
             <>
@@ -67,6 +68,7 @@ function Login () {
               </Button>
             </>
           )}
+
           {!isUserLoggedIn && (
             <GitHubButton onClick={login}>Entrar com GitHub</GitHubButton>
           )}
@@ -79,6 +81,7 @@ function Login () {
 const Container = styled.div`
   padding: 20px;
 `
+
 const Logo = styled(MainLogo)`
   width: 100%;
 `
@@ -89,8 +92,8 @@ const GitHubButton = styled(Button).attrs({
 })`
   && {
     font-size: 25px;
-    padding: 15px;
     max-width: 480px;
+    padding: 15px;
     text-transform: none;
   }
 `
