@@ -51,18 +51,14 @@ const Main = () => {
 
       <Content>
         <Grid container direction='column' alignItems='center'>
-          <Typography variant='h3' gutterBottom>
-            O que vai ser hoje {userName}? =)
-          </Typography>
+          <Title variant='h3'>O que vai ser hoje {userName}? =)</Title>
 
-          <Typography variant='h4' gutterBottom>
-            Escolha o tamanho da pizza:
-          </Typography>
+          <Title variant='h4'>Escolha o tamanho da pizza:</Title>
         </Grid>
 
-        <Grid container spacing={16}>
+        <PizzasGrid>
           {pizzaSizes.map(pizza => (
-            <Grid item key={pizza.id} xs={4}>
+            <Grid item key={pizza.id} xs>
               <PaperPizza>
                 <Pizza>
                   <PizzaText>{pizza.size}cm</PizzaText>
@@ -77,7 +73,7 @@ const Main = () => {
               </PaperPizza>
             </Grid>
           ))}
-        </Grid>
+        </PizzasGrid>
       </Content>
     </>
   )
@@ -137,6 +133,7 @@ const PaperPizza = styled(Paper)`
   align-items: center;
   display: flex;
   flex-direction: column;
+  min-width: 250px;
   padding: 20px 0;
 `
 
@@ -169,6 +166,13 @@ const Pizza = styled.div`
   }
 `
 
+const PizzasGrid = styled(Grid).attrs({
+  container: true,
+  spacing: 16
+})`
+  padding: 20px;
+`
+
 const PizzaText = styled(Typography).attrs({
   variant: 'h5'
 })`
@@ -188,6 +192,11 @@ const style = theme => ({ main: theme.mixins.toolbar })
 const Spacer = withStyles(style)(({ classes }) => (
   <div className={classes.main} />
 ))
+
+const Title = styled(Typography).attrs({
+  gutterBottom: true,
+  align: 'center'
+})``
 
 const Toolbar = styled(MaterialToolbar)`
   margin: 0 auto;
