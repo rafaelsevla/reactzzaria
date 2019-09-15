@@ -10,7 +10,7 @@ function App () {
     <Suspense fallback={<LinearProgress />}>
       <Switch>
         <Route path='/login' component={Login} />
-        <Route path='/' component={MainPage} />
+        <Route component={MainPage} />
       </Switch>
     </Suspense>
   )

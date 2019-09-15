@@ -10,7 +10,7 @@ function Root () {
       <CssBaseline />
 
       <BrowserRouter>
-        <Route component={<App />} />
+        <Route component={App} />
       </BrowserRouter>
     </AuthProvider>
   )
