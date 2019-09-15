@@ -5,7 +5,10 @@ const PizzasGrid = styled(Grid).attrs({
   container: true,
   spacing: 2
 })`
+&&{
+
   padding: ${({ theme }) => theme.spacing(3)}px;
+}
 `
 
 export default PizzasGrid

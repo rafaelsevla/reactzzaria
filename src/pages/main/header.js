@@ -63,9 +63,12 @@ const Logo = styled(MainLogo)`
 `
 
 const Toolbar = styled(MaterialToolbar)`
+&& {
   margin: 0 auto;
   max-width: ${({ theme }) => theme.breakpoints.values.lg}px;
   width: 100%;
+
+}
 `
 
 export default Header

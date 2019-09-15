@@ -86,6 +86,8 @@ const Pizza = styled.div`
 const PizzaText = styled(Typography).attrs({
   variant: 'h5'
 })`
+&& {
+
   align-items: center;
   background: ${({ theme }) => theme.palette.common.white};
   border-radius: 50%;
@@ -95,6 +97,7 @@ const PizzaText = styled(Typography).attrs({
   position: relative;
   width: 80px;
   z-index: 1;
+}
 `
 
 export default ChoosePizzaSize
