@@ -1,24 +1,29 @@
-import React, { Fragment } from 'react'
-import { Route, Switch } from 'react-router-dom'
-
-const routes = [
-  { path: '/rota1', content: 'Rota 1' },
-  { path: '/rota2', content: 'Rota 2' }
-]
+import React from 'react'
+import {
+  AppBar,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography
+} from '@material-ui/core'
+import { AccountCircle } from '@material-ui/icons'
+import { ReactComponent as MainLogo } from 'pages/login/logo-react-zzaria.svg'
 
 const Main = () => (
-  <Fragment>
-    <h1>Main</h1>
-    <Switch>
-      {routes.map(route => (
-        <Route
-          key={route.path}
-          path={route.path}
-          render={() => <h2>{route.content}</h2>}
-        />
-      ))}
-    </Switch>
-  </Fragment>
+  <AppBar>
+    <Toolbar>
+      <MainLogo />
+      <Typography color='inherit'>Olá João =)</Typography>
+      <IconButton color='inherit'>
+        <AccountCircle />
+      </IconButton>
+
+      <Menu open>
+        <MenuItem>Sair</MenuItem>
+      </Menu>
+    </Toolbar>
+  </AppBar>
 )
 
 export default Main
