@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Card, Grid, Typography } from '@material-ui/core'
 import {
@@ -11,13 +11,13 @@ import {
   PizzasGrid
 } from 'ui'
 import { singularOrPlural } from 'utils'
-import { AuthContext } from 'contexts/auth'
+import { useAuth } from 'hooks'
 import pizzaSizes from 'fake-data/pizzas-sizes'
 
 import { CHOOSE_PIZZA_FLAVOURS } from 'routes'
 
 const ChoosePizzaSize = () => {
-  const { userInfo } = useContext(AuthContext)
+  const { userInfo } = useAuth()
 
   return (
     <Content>
@@ -86,18 +86,17 @@ const Pizza = styled.div`
 const PizzaText = styled(Typography).attrs({
   variant: 'h5'
 })`
-&& {
-
-  align-items: center;
-  background: ${({ theme }) => theme.palette.common.white};
-  border-radius: 50%;
-  display: flex;
-  height: 80px;
-  justify-content: center;
-  position: relative;
-  width: 80px;
-  z-index: 1;
-}
+  && {
+    align-items: center;
+    background: ${({ theme }) => theme.palette.common.white};
+    border-radius: 50%;
+    display: flex;
+    height: 80px;
+    justify-content: center;
+    position: relative;
+    width: 80px;
+    z-index: 1;
+  }
 `
 
 export default ChoosePizzaSize

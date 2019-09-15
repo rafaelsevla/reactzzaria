@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import {
   AppBar,
   IconButton,
@@ -10,10 +11,11 @@ import {
 } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import { ReactComponent as MainLogo } from 'images/logo-react-zzaria.svg'
-import { AuthContext } from 'contexts/auth'
+import { useAuth } from 'hooks'
+import { HOME } from 'routes'
 
 const Header = () => {
-  const { logout, userInfo } = useContext(AuthContext)
+  const { logout, userInfo } = useAuth()
   const [anchorElement, setAnchorElement] = useState(null)
 
   const handleOpenMenu = e => setAnchorElement(e.target)
@@ -23,7 +25,9 @@ const Header = () => {
     <AppBar>
       <Toolbar>
         <LogoContainer>
-          <Logo />
+          <LinkLogo to={HOME}>
+            <Logo />
+          </LinkLogo>
         </LogoContainer>
 
         <Typography color='inherit'>
@@ -48,6 +52,9 @@ const Header = () => {
 const LogoContainer = styled.div`
   flex-grow: 1;
 `
+const LinkLogo = styled(Link)`
+  display: inline-block;
+`
 
 const Logo = styled(MainLogo)`
   height: 50px;
@@ -63,12 +70,11 @@ const Logo = styled(MainLogo)`
 `
 
 const Toolbar = styled(MaterialToolbar)`
-&& {
-  margin: 0 auto;
-  max-width: ${({ theme }) => theme.breakpoints.values.lg}px;
-  width: 100%;
-
-}
+  && {
+    margin: 0 auto;
+    max-width: ${({ theme }) => theme.breakpoints.values.lg}px;
+    width: 100%;
+  }
 `
 
 export default Header
