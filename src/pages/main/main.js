@@ -1,34 +1,49 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import {
   AppBar,
   IconButton,
   Menu,
   MenuItem,
-  Toolbar,
+  Toolbar as MaterialToolbar,
   Typography
 } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
-import { ReactComponent as MainLogo } from 'pages/login/logo-react-zzaria.svg'
+import { ReactComponent as MainLogo } from 'images/logo-react-zzaria.svg'
+import { AuthContext } from 'contexts/auth'
 
-const Main = () => (
-  <AppBar>
-    <Toolbar>
-      <LogoContainer>
-        <Logo />
-      </LogoContainer>
+const Main = () => {
+  const [anchorElement, setAnchorElement] = useState(null)
+  const { logout, userInfo } = useContext(AuthContext)
 
-      <Typography color='inherit'>Olá João =)</Typography>
-      <IconButton color='inherit'>
-        <AccountCircle />
-      </IconButton>
+  const handleOpenMenu = e => setAnchorElement(e.target)
+  const handleClose = () => setAnchorElement(null)
 
-      <Menu open={false}>
-        <MenuItem>Sair</MenuItem>
-      </Menu>
-    </Toolbar>
-  </AppBar>
-)
+  return (
+    <AppBar>
+      <Toolbar>
+        <LogoContainer>
+          <Logo />
+        </LogoContainer>
+
+        <Typography color='inherit'>
+          Olá {userInfo.user.displayName.split(' ')[0]} =)
+        </Typography>
+        <IconButton color='inherit' onClick={handleOpenMenu}>
+          <AccountCircle />
+        </IconButton>
+
+        <Menu
+          open={!!anchorElement}
+          onClose={handleClose}
+          anchorEl={anchorElement}
+        >
+          <MenuItem onClick={logout}>Sair</MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
+  )
+}
 
 const LogoContainer = styled.div`
   flex-grow: 1;
@@ -45,6 +60,12 @@ const Logo = styled(MainLogo)`
   & line {
     stroke: #fff;
   }
+`
+
+const Toolbar = styled(MaterialToolbar)`
+  margin: 0 auto;
+  max-width: 960px;
+  width: 100%;
 `
 
 export default Main
