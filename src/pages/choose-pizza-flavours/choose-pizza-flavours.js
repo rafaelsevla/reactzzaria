@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Card as MaterialCard, Grid, Typography } from '@material-ui/core'
 import { Redirect } from 'react-router-dom'
 import { CardLink, Divider, H4, HeaderContent, PizzasGrid } from 'ui'
-import { singularOrPlural } from 'utils'
+import { singularOrPlural, toMoney } from 'utils'
 import { HOME } from 'routes'
 
 import pizzasFlavours from 'fake-data/pizzas-flavours'
@@ -58,7 +58,7 @@ const ChoosePizzaFlavours = ({ location }) => {
                 <Divider />
 
                 <Typography>{pizza.name}</Typography>
-                <Typography variant='h5'>{pizza.value[id]}</Typography>
+                <Typography variant='h5'>{toMoney(pizza.value[id])}</Typography>
               </Label>
             </Card>
           </Grid>
