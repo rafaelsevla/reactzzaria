@@ -1,6 +1,5 @@
 import React, { lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import styled from 'styled-components'
 import { withStyles } from '@material-ui/core'
 import Header from './header'
 
@@ -15,24 +14,18 @@ const Main = () => (
 
     <Spacer />
 
-    <Content>
-      <Suspense fallback='loading...'>
-        <Switch>
-          <Route path={HOME} exact component={ChoosePizzaSize} />
-          <Route
-            path={CHOOSE_PIZZA_FLAVOURS}
-            exact
-            component={ChoosePizzaFlavours}
-          />
-        </Switch>
-      </Suspense>
-    </Content>
+    <Suspense fallback='loading...'>
+      <Switch>
+        <Route path={HOME} exact component={ChoosePizzaSize} />
+        <Route
+          path={CHOOSE_PIZZA_FLAVOURS}
+          exact
+          component={ChoosePizzaFlavours}
+        />
+      </Switch>
+    </Suspense>
   </>
 )
-
-const Content = styled.main`
-  padding: ${({ theme }) => theme.spacing(3)}px;
-`
 
 const style = theme => ({ main: theme.mixins.toolbar })
 
