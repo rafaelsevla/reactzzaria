@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useContext, useEffect } from 'react'
+import React, { lazy, Suspense, useContext, useState, useEffect } from 'react'
 import t from 'prop-types'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { LinearProgress } from '@material-ui/core'
@@ -9,7 +9,8 @@ const MainPage = lazy(() => import('pages/main'))
 const Login = lazy(() => import('pages/login'))
 
 function App ({ location }) {
-  const { userInfo, setUserInfo } = useContext(AuthContext)
+  const { userInfo, setUserInfo, logout } = useContext(AuthContext)
+  const [didCheckUserIn, setDidCheckUserIn] = useState(false)
 
   const { isUserLoggedIn } = userInfo
 
@@ -20,24 +21,21 @@ function App ({ location }) {
         isUserLoggedIn: !!user,
         user
       })
+      setDidCheckUserIn(true)
     })
+    window.logout = logout
   }, [])
 
-  if (isUserLoggedIn) {
-    console.log('usuario está logado')
-    if (location.pathname === '/login') {
-      console.log('usuario está logado e na pagina de login')
-      return <Redirect to='/' />
-    } else {
-      console.log('usuario está logado e não está na pagina de login')
-    }
-  } else {
-    console.log('usuario não está logado')
-    if (location.pathname !== '/login') {
-      return <Redirect to='/login' />
-    } else {
-      console.log('usuário nao está logado e na pagina de login')
-    }
+  if (!didCheckUserIn) {
+    return <LinearProgress />
+  }
+
+  if (isUserLoggedIn && location.pathname === '/login') {
+    return <Redirect to='/' />
+  }
+
+  if (!isUserLoggedIn && location.pathname !== '/login') {
+    return <Redirect to='/login' />
   }
 
   return (
