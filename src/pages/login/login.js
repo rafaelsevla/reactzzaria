@@ -5,7 +5,7 @@ import { useAuth } from 'hooks'
 import { ReactComponent as MainLogo } from 'images/logo-react-zzaria.svg'
 
 function Login () {
-  const { login } = useAuth
+  const { login } = useAuth()
 
   return (
     <Container>
