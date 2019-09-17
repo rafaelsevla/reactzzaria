@@ -9,7 +9,7 @@ import {
 import { Redirect } from 'react-router-dom'
 import { CardLink, Content, Divider, H4, Footer, HeaderContent, PizzasGrid } from 'ui'
 import { singularOrPlural, toMoney } from 'utils'
-import { HOME } from 'routes'
+import { HOME, CHOOSE_PIZZA_QUANTITY } from 'routes'
 
 import pizzasFlavours from 'fake-data/pizzas-flavours'
 
@@ -72,7 +72,19 @@ const ChoosePizzaFlavours = ({ location }) => {
         </PizzasGrid>
       </Content>
 
-      <Footer />
+      <Footer
+        buttons={[
+          {
+            to: HOME,
+            children: 'Mudar tamanho'
+          },
+          {
+            to: CHOOSE_PIZZA_QUANTITY,
+            children: 'Quantas pizzas?',
+            color: 'primary'
+          }
+        ]}
+      />
     </>
   )
 }
