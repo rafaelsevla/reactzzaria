@@ -33,8 +33,7 @@ function ChoosePizzaQuantity ({ location }) {
 
   function addPizza () {
     addPizzaToOrder({
-      size: location.state.pizzaSize.id,
-      flavours: location.state.pizzaFlavours.map(f => f.id),
+      ...location.state,
       quantity
     })
   }
@@ -52,7 +51,7 @@ function ChoosePizzaQuantity ({ location }) {
         <MainContent>
           <Input value={quantity} onChange={handleChange} autoFocus />
 
-          <ButtonAddPizza onClick={addPizza}>
+          <ButtonAddPizza to={HOME} onClick={addPizza}>
             Adicionar e <br />
             montar outra
           </ButtonAddPizza>
