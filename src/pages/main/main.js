@@ -10,6 +10,7 @@ const ChoosePizzaFlavours = lazy(() => import('pages/choose-pizza-flavours'))
 const ChoosePizzaQuantity = lazy(() => import('pages/choose-pizza-quantity'))
 const Checkout = lazy(() => import('pages/checkout'))
 const CheckoutConfirmation = lazy(() => import('pages/checkout-confirmation'))
+const CheckoutSuccess = lazy(() => import('pages/checkout-success'))
 
 const Main = () => (
   <>
@@ -33,8 +34,12 @@ const Main = () => (
 
         <Route
           path={routes.CHECKOUT_CONFIRMATION}
-          exact
           component={CheckoutConfirmation}
+        />
+
+        <Route
+          path={routes.CHECKOUT_SUCCESS}
+          component={CheckoutSuccess}
         />
 
         <Route
