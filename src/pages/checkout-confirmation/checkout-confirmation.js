@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {
+  Button,
   Container,
   Divider as MaterialDivider,
   Paper,
@@ -12,42 +13,51 @@ import {
   H6,
   OrderInfo
 } from 'ui'
+import FooterCheckout from 'pages/checkout/footer-checkout'
 import { useAuth } from 'hooks'
 
 function CheckoutConfirmation () {
   const { userInfo } = useAuth()
 
   return (
-    <Content>
-      <Header>
-        <H4>Oi {userInfo.user.firstName}!</H4>
-        <Typography>
-          Confere por favor se esta tudo certo com o seu pedido antes de
-          finalizar?
-        </Typography>
-      </Header>
-
-      <Container maxWidth='sm'>
-        <PaperContainer>
-          <H6>Seu pedido</H6>
-
-          <OrderInfo />
-          <Divider />
-
-          <H6>Endereço para entrega:</H6>
+    <>
+      <Content>
+        <Header>
+          <H4>Oi {userInfo.user.firstName}!</H4>
           <Typography>
-            Rua Tal, 10, compl. bairro, cep: 14810-115 - Cidade / UF
+            Confere por favor se esta tudo certo com o seu pedido antes de
+            finalizar?
           </Typography>
+        </Header>
 
-          <Divider />
+        <Container maxWidth='sm'>
+          <PaperContainer>
+            <H6>Seu pedido</H6>
 
-          <H6>
-            Telefone para contato:
-          </H6>
-          <Typography>(16) 99746-4613</Typography>
-        </PaperContainer>
-      </Container>
-    </Content>
+            <OrderInfo />
+            <Divider />
+
+            <H6>Endereço para entrega:</H6>
+            <Typography>
+              Rua Tal, 10, compl. bairro, cep: 14810-115 - Cidade / UF
+            </Typography>
+
+            <Divider />
+
+            <H6>
+              Telefone para contato:
+            </H6>
+            <Typography>(16) 99746-4613</Typography>
+          </PaperContainer>
+        </Container>
+      </Content>
+
+      <FooterCheckout justifyContent='center'>
+        <Button variant='contained' color='primary' size='large'>
+          Tudo certo
+        </Button>
+      </FooterCheckout>
+    </>
   )
 }
 
