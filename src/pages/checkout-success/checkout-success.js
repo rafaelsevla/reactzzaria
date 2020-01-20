@@ -25,7 +25,7 @@ function CheckoutSuccess () {
     <>
       <Content>
         <Header>
-          <H4>Prontinho {userInfo.user.firstName}!</H4>
+          <H4>Prontinho, {userInfo.user.firstName}!</H4>
           <Typography>
             Seu pedido será entregue no endereço abaixo em até
           </Typography>
