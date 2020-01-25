@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer, useRef } from 'react'
 import {
   CircularProgress,
   Grid
@@ -7,8 +7,10 @@ import TextField from './text-field'
 
 function FormAddress () {
   const [cep, setCep] = useState('')
-  const [addressState, dispatch] = useReducer(reducer, initialState)
   const [fetchingCep, setFetchingCep] = useState(false)
+  const [addressState, dispatch] = useReducer(reducer, initialState)
+  const numberField = useRef()
+  const addressField = useRef()
 
   useEffect(() => {
     async function fetchAddress () {
@@ -20,13 +22,32 @@ function FormAddress () {
       const data = await fetch(`https://apps.widenet.com.br/busca-cep/api/cep/${cep}.json`)
       setFetchingCep(false)
 
+      if (!data.ok) {
+        dispatch({ type: 'RESET' })
+        addressField.current.focus()
+        return
+      }
+
       const result = await data.json()
+
+      if (!result.ok) {
+        dispatch({
+          type: 'FAIL',
+          payload: {
+            error: result.message
+          }
+        })
+        return
+      }
 
       dispatch({
         type: 'UPDATE_FULL_ADDRESS',
         payload: result
       })
+
+      numberField.current.focus()
     }
+
     fetchAddress()
   }, [cep])
 
@@ -36,13 +57,18 @@ function FormAddress () {
 
   function cepMask (value) {
     return value
-      .replace(/\D/g, '')
+      .replace(/\D+/g, '')
       .replace(/(\d{5})(\d)/, '$1-$2')
       .replace(/(-\d{3})\d+?$/, '$1')
   }
 
   function handleChangeField (e) {
+    const { name, value } = e.target
 
+    dispatch({
+      type: 'UPDATE_FIELD',
+      payload: { name, value }
+    })
   }
 
   return (
@@ -53,6 +79,7 @@ function FormAddress () {
         autoFocus
         value={cep}
         onChange={handleChangeCep}
+        error={!!addressState.error}
       />
       <Grid item xs={8}>
         {fetchingCep && <CircularProgress size={20} />}
@@ -62,13 +89,15 @@ function FormAddress () {
         {
           label: 'Rua',
           xs: 9,
-          name: 'address'
+          name: 'address',
+          inputRef: addressField
         },
 
         {
           label: 'Número',
           xs: 3,
-          name: 'number'
+          name: 'number',
+          inputRef: numberField
         },
 
         {
@@ -88,7 +117,7 @@ function FormAddress () {
           xs: 3,
           name: 'state'
         }
-      ].map(field => (
+      ].map((field) => (
         <TextField
           {...field}
           key={field.name}
@@ -105,8 +134,27 @@ function reducer (state, action) {
   if (action.type === 'UPDATE_FULL_ADDRESS') {
     return {
       ...state,
-      ...action.payload
+      ...action.payload,
+      error: null
     }
+  }
+
+  if (action.type === 'UPDATE_FIELD') {
+    return {
+      ...state,
+      [action.payload.name]: action.payload.value
+    }
+  }
+
+  if (action.type === 'FAIL') {
+    return {
+      ...initialState,
+      error: action.payload.error
+    }
+  }
+
+  if (action.type === 'RESET') {
+    return initialState
   }
 
   return state
