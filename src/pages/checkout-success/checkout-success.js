@@ -8,12 +8,7 @@ import {
   Paper,
   Typography
 } from '@material-ui/core'
-import {
-  Content,
-  H4,
-  H6,
-  OrderInfo
-} from 'ui'
+import { Content, H4, H6, OrderInfo } from 'ui'
 import FooterCheckout from 'pages/checkout/footer-checkout'
 import { useAuth } from 'hooks'
 import { HOME } from 'routes'
@@ -30,9 +25,7 @@ function CheckoutSuccess () {
             Seu pedido será entregue no endereço abaixo em até
           </Typography>
 
-          <H6>
-            40 min =)
-          </H6>
+          <H6>40 min =)</H6>
         </Header>
 
         <Container maxWidth='sm'>
@@ -49,21 +42,14 @@ function CheckoutSuccess () {
 
             <Divider />
 
-            <H6>
-              Telefone para contato:
-            </H6>
+            <H6>Telefone para contato:</H6>
             <Typography>(16) 99746-4613</Typography>
           </PaperContainer>
         </Container>
       </Content>
 
       <FooterCheckout justifyContent='center'>
-        <Button
-          color='secondary'
-          size='large'
-          component={Link}
-          to={HOME}
-        >
+        <Button color='secondary' size='large' component={Link} to={HOME}>
           Voltar para a página inicial
         </Button>
       </FooterCheckout>
