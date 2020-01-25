@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import {
+  CircularProgress,
   Grid
 } from '@material-ui/core'
 import TextField from './text-field'
@@ -7,8 +8,7 @@ import TextField from './text-field'
 function FormAddress () {
   const [cep, setCep] = useState('')
   const [addressState, dispatch] = useReducer(reducer, initialState)
-
-  console.log('addressState', addressState)
+  const [fetchingCep, setFetchingCep] = useState(false)
 
   useEffect(() => {
     async function fetchAddress () {
@@ -16,11 +16,12 @@ function FormAddress () {
         return
       }
 
-      const data = await fetch(
-        `https://apps.widenet.com.br/busca-cep/api/cep/${cep}.json`
-      )
+      setFetchingCep(true)
+      const data = await fetch(`https://apps.widenet.com.br/busca-cep/api/cep/${cep}.json`)
+      setFetchingCep(false)
+
       const result = await data.json()
-      console.log(result)
+
       dispatch({
         type: 'UPDATE_FULL_ADDRESS',
         payload: result
@@ -40,8 +41,12 @@ function FormAddress () {
       .replace(/(-\d{3})\d+?$/, '$1')
   }
 
+  function handleChangeField (e) {
+
+  }
+
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} alignItems='center'>
       <TextField
         label='CEP'
         xs={4}
@@ -49,13 +54,49 @@ function FormAddress () {
         value={cep}
         onChange={handleChangeCep}
       />
-      <Grid item xs={8} />
+      <Grid item xs={8}>
+        {fetchingCep && <CircularProgress size={20} />}
+      </Grid>
 
-      <TextField label='Rua' xs={9} />
-      <TextField label='Número' xs={3} />
-      <TextField label='Complemento' xs={12} />
-      <TextField label='Cidade' xs={9} />
-      <TextField label='Estado' xs={3} />
+      {[
+        {
+          label: 'Rua',
+          xs: 9,
+          name: 'address'
+        },
+
+        {
+          label: 'Número',
+          xs: 3,
+          name: 'number'
+        },
+
+        {
+          label: 'Complemento',
+          xs: 12,
+          name: 'complement'
+        },
+
+        {
+          label: 'Cidade',
+          xs: 9,
+          name: 'city'
+        },
+
+        {
+          label: 'Estado',
+          xs: 3,
+          name: 'state'
+        }
+      ].map(field => (
+        <TextField
+          {...field}
+          key={field.name}
+          value={addressState[field.name]}
+          onChange={handleChangeField}
+          disabled={fetchingCep}
+        />
+      ))}
     </Grid>
   )
 }
