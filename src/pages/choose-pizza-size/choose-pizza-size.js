@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Card, Grid, Typography } from '@material-ui/core'
 import {
@@ -11,27 +11,21 @@ import {
   PizzasGrid
 } from 'ui'
 import { singularOrPlural } from 'utils'
-import { useAuth } from 'hooks'
+import { useAuth, useCollection } from 'hooks'
 
 import { CHOOSE_PIZZA_FLAVOURS } from 'routes'
-import { db } from 'services/firebase'
 
 const ChoosePizzaSize = () => {
   const { userInfo } = useAuth()
-  const [pizzasSizes, setPizzasSizes] = useState([])
+  const pizzasSizes = useCollection('pizzasSizes')
 
-  useEffect(() => {
-    db.collection('pizzasSizes').get().then(querySnapshot => {
-      let sizes = []
-      querySnapshot.forEach(doc => {
-        sizes.push({
-          id: doc.id,
-          ...doc.data()
-        })
-      })
-      setPizzasSizes(sizes)
-    })
-  }, [])
+  if (!pizzasSizes) {
+    return 'Carregando tamanhos...'
+  }
+
+  if (pizzasSizes.length === 0) {
+    return 'Não há dados.'
+  }
 
   return (
     <Content>
