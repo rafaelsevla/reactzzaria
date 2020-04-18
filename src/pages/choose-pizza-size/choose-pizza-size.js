@@ -21,8 +21,8 @@ const ChoosePizzaSize = () => {
   const [pizzasSizes, setPizzasSizes] = useState([])
 
   useEffect(() => {
-    let sizes = []
     db.collection('pizzasSizes').get().then(querySnapshot => {
+      let sizes = []
       querySnapshot.forEach(doc => {
         sizes.push({
           id: doc.id,
