@@ -1,24 +1,19 @@
-# React-zzaria!
+# Reactzzaria
 
-## What's inside it?
+## Configurações padrão para variáveis de ambiente
 
-- [Babel](https://babeljs.io/) - A JavaScript compiler;
-- [Jest](https://jestjs.io/en/) - A delightful JavaScript Testing Framework with a focus on simplicity;
-- [React](https://reactjs.org) - A JavaScript library for building user interfaces;
-- [Material-UI](https://github.com/mui-org/material-ui) - React components for faster and easier web development.
-- [Styled Components](https://www.styled-components.com) - Visual primitives for the component age.
+Crie um arquivo `.env.local` na raiz da sua aplicação, com as seguintes variáveis:
 
-## Up and running
+As variáveis que pedem chaves são de uma aplicação criada com o Firebase.
 
-- Clone this repository: `git clone git@github.com:rafaelsevla/reactzzaria.git your-project-name`;
-- Remove `.git` directory or run `git remote rm origin`;
-- Install dependencies: `yarn` (or `npm i`);
-- Run `yarn start` (or `npm start`) to develop on `http://localhost:3000`
+```
+BROWSER=none
 
-## Scripts
-
-- `yarn start (or npm start)`: Starts the application
-
-## Author
-
-[Rafael Costa](https://github.com/rafaelsevla)
+REACT_APP_API_KEY=
+REACT_APP_AUTH_DOMAIN=
+REACT_APP_DATABASE_URL=
+REACT_APP_PROJECT_ID=
+REACT_APP_STORAGE_BUCKET=
+REACT_APP_MESSAGING_SENDER_ID=
+REACT_APP_APP_ID=
+```

@@ -3,13 +3,13 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 const config = {
-  apiKey: 'AIzaSyD0NMO1BuAICNJ3o4bLU54Ws6UpTrLMcLs',
-  authDomain: 'reactzzaria-40602.firebaseapp.com',
-  databaseURL: 'https://reactzzaria-40602.firebaseio.com',
-  projectId: 'reactzzaria-40602',
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: '',
-  messagingSenderId: '806464840510',
-  appId: '1:806464840510:web:0afcb88392c85a7c84c26f'
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID
 }
 
 firebase.initializeApp(config)
